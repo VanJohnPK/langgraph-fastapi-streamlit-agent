@@ -9,7 +9,8 @@ from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, StateGraph, MessagesState
 from langgraph.managed import IsLastStep
 from langgraph.prebuilt import ToolNode
-from langchain_community.tools.ddg_search.tool import DuckDuckGoSearchRun
+from langchain_community.tools.ddg_search.tool import DuckDuckGoSearchResults
+from agent.tools import web_search, arxiv_search, wiki, datetime_tool, calculator
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -22,10 +23,9 @@ class AgentState(MessagesState):
 
 models = {
     "gpt-4o-mini": ChatOpenAI(model="gpt-4o-mini", temperature=0.5, streaming=True),
-    # "llama-3.1-70b": ChatGroq(model="llama-3.1-70b-versatile", temperature=0.5)
+    "gpt-4o-2024-08-06": ChatOpenAI(model="gpt-4o-2024-08-06", temperature=0.5, streaming=True),
 }
-web_search = DuckDuckGoSearchRun()
-tools = [web_search]
+tools = [web_search, arxiv_search, wiki, datetime_tool, calculator]
 current_date = datetime.now().strftime("%B %d, %Y")
 instructions = f"""
     You are a helpful research assistant with the ability to search the web for information.

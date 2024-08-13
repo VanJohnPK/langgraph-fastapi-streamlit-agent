@@ -35,25 +35,25 @@ async def main():
     )
 
     # Hide the streamlit upper-right chrome
-    st.html(
-        """
-        <style>
-        [data-testid="stStatusWidget"] {
-                visibility: hidden;
-                height: 0%;
-                position: fixed;
-            }
-        </style>
-        """,
-    )
+    # st.html(
+    #     """
+    #     <style>
+    #     [data-testid="stStatusWidget"] {
+    #             visibility: hidden;
+    #             height: 0%;
+    #             position: fixed;
+    #         }
+    #     </style>
+    #     """,
+    # )
     if st.get_option("client.toolbarMode") != "minimal":
         st.set_option("client.toolbarMode", "minimal")
         await asyncio.sleep(0.1)
         st.rerun()
 
     models = {
-        "OpenAI GPT-4o-mini (streaming)": "gpt-4o-mini",
-        "llama-3.1-70b on Groq": "llama-3.1-70b",
+        "OpenAI GPT-4o-mini": "gpt-4o-mini",
+        "OpenAI GPT-4o-2024-08-06": "gpt-4o-2024-08-06",
     }
     # Config options
     with st.sidebar:
