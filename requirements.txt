@@ -1,0 +1,22 @@
+# NOTE: FastAPI < 0.100.0 and Pydantic v1 is required until langchain has full pydantic v2 compatibility
+# https://python.langchain.com/v0.1/docs/guides/development/pydantic_compatibility/
+# https://github.com/langchain-ai/langchain/discussions/24405
+# https://github.com/langchain-ai/langchain/discussions/9337
+# IMPORTANT: This also requires using python < 3.12.4
+
+aiohttp
+arxiv
+duckduckgo-search
+fastapi
+langchain-core
+langchain-community
+langchain-openai
+langchain-groq
+langgraph
+langgraph-checkpoint
+langgraph-checkpoint-sqlite
+langsmith
+pydantic
+python-dotenv
+streamlit
+uvicorn

@@ -1,0 +1,11 @@
+__pycache__
+checkpoints.db
+checkpoints.db-*
+
+# Environments
+.env
+venv
+
+# VSCode
+.vscode
+.DS_Store

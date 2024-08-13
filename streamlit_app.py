@@ -78,7 +78,8 @@ async def main():
             st.write("Prompts, responses and feedback in this app are anonymously recorded and saved to LangSmith for product evaluation and improvement purposes only.")
 
         "[View the source code](https://github.com/JoshuaC215/agent-service-toolkit)"
-        st.caption("Made with :material/favorite: by [Joshua](https://www.linkedin.com/in/joshua-k-carroll/) in Oakland")
+        st.caption("Inspired by [Joshua](https://www.linkedin.com/in/joshua-k-carroll/) in Oakland")
+        st.caption("Made with :material/favorite: by darkVinci in Shanghai")
 
     # Draw existing messages
     if "messages" not in st.session_state:
