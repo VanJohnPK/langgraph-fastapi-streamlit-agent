@@ -34,18 +34,6 @@ async def main():
         menu_items={},
     )
 
-    # Hide the streamlit upper-right chrome
-    # st.html(
-    #     """
-    #     <style>
-    #     [data-testid="stStatusWidget"] {
-    #             visibility: hidden;
-    #             height: 0%;
-    #             position: fixed;
-    #         }
-    #     </style>
-    #     """,
-    # )
     if st.get_option("client.toolbarMode") != "minimal":
         st.set_option("client.toolbarMode", "minimal")
         await asyncio.sleep(0.1)
@@ -58,7 +46,6 @@ async def main():
     # Config options
     with st.sidebar:
         st.header(f"{APP_ICON} {APP_TITLE}")
-        ""
         "Full toolkit for running an AI agent service built with LangGraph, FastAPI and Streamlit"
         with st.popover(":material/settings: Settings", use_container_width=True):
             m = st.radio("LLM to use", options=models.keys())
@@ -68,8 +55,6 @@ async def main():
         @st.dialog("Architecture")
         def architecture_dialog():
             st.image("https://github.com/JoshuaC215/agent-service-toolkit/blob/main/media/agent_architecture.png?raw=true")
-            "[View full size on Github](https://github.com/JoshuaC215/agent-service-toolkit/blob/main/media/agent_architecture.png)"
-            st.caption("App hosted on [Streamlit Cloud](https://share.streamlit.io/) with FastAPI service running in [Azure](https://learn.microsoft.com/en-us/azure/app-service/)")
 
         if st.button(":material/schema: Architecture", use_container_width=True):
             architecture_dialog()
@@ -77,7 +62,7 @@ async def main():
         with st.popover(":material/policy: Privacy", use_container_width=True):
             st.write("Prompts, responses and feedback in this app are anonymously recorded and saved to LangSmith for product evaluation and improvement purposes only.")
 
-        "[View the source code](https://github.com/JoshuaC215/agent-service-toolkit)"
+        "[View the referenced source code](https://github.com/JoshuaC215/agent-service-toolkit)"
         st.caption("Inspired by [Joshua](https://www.linkedin.com/in/joshua-k-carroll/) in Oakland")
         st.caption("Made with :material/favorite: by darkVinci in Shanghai")
 
@@ -118,6 +103,10 @@ async def main():
             st.chat_message("ai").write(response.content)
         st.rerun() # Clear stale containers
 
+    # If messages have been generated, show feedback widget
+    if len(messages) > 0:
+        with st.session_state.last_message:
+            await handle_feedback()
 
 async def draw_messages(
         messages_agen: AsyncGenerator[ChatMessage | str, None],
@@ -234,6 +223,30 @@ async def draw_messages(
                 st.error(f"Unexpected ChatMessage type: {msg.type}")
                 st.write(msg)
                 st.stop()
+
+async def handle_feedback():
+    """Draws a feedback widget and records feedback from the user."""
+
+    # Keep track of last feedback sent to avoid sending duplicates
+    if "last_feedback" not in st.session_state:
+        st.session_state.last_feedback = (None, None)
+    
+    latest_run_id = st.session_state.messages[-1].run_id
+    feedback = st.feedback("thumbs", key=latest_run_id)
+
+    # If the feedback value or run ID has changed, send a new feedback record
+    if feedback != None and (latest_run_id, feedback) != st.session_state.last_feedback:
+        agent_client = get_agent_client()
+        await agent_client.acreate_feedback(
+            run_id=latest_run_id,
+            key="human-feedback-thumbs",
+            score=feedback,
+            kwargs=dict(
+                comment="In-line human feedback",
+            ),
+        )
+        st.session_state.last_feedback = (latest_run_id, feedback)
+        st.toast("Feedback recorded", icon=":material/reviews:")
 
 if __name__ == "__main__":
     asyncio.run(main())
