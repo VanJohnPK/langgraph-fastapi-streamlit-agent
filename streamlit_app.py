@@ -46,7 +46,7 @@ async def main():
     # Config options
     with st.sidebar:
         st.header(f"{APP_ICON} {APP_TITLE}")
-        "Full toolkit for running an AI agent service built with LangGraph, FastAPI and Streamlit"
+        "An AI agent service built with LangGraph, FastAPI and Streamlit"
         with st.popover(":material/settings: Settings", use_container_width=True):
             m = st.radio("LLM to use", options=models.keys())
             model = models[m]
