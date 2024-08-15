@@ -1,4 +1,5 @@
 from langchain_openai import ChatOpenAI
+from langchain_openai import AzureChatOpenAI
 
 # from langchain_groq import ChatGroq
 from langchain_core.language_models.chat_models import BaseChatModel
@@ -24,9 +25,15 @@ class AgentState(MessagesState):
 
 models = {
     "gpt-4o-mini": ChatOpenAI(model="gpt-4o-mini", temperature=0.5, streaming=True),
-    "gpt-4o-2024-08-06": ChatOpenAI(
-        model="gpt-4o-2024-08-06", temperature=0.5, streaming=True
+    "azure-gpt-4o-mini": AzureChatOpenAI(
+        azure_deployment="wi_dev_4o_mini", temperature=0.5, streaming=True
     ),
+    # "gpt-4o": AzureChatOpenAI(
+    #     azure_deployment="wi_daily_dev_testing", temperature=0.5, streaming=True
+    # ),
+    # "gpt-4o": ChatOpenAI(
+    #     model="gpt-4o", temperature=0.5, streaming=True
+    # ),
 }
 tools = [web_search, arxiv_search, datetime_tool]
 instructions = f"""

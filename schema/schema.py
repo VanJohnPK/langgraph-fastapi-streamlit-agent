@@ -16,7 +16,7 @@ class UserInput(BaseModel):
     model: str = Field(
         description="LLM Model to use for the agent.",
         default="gpt-4o-mini",
-        examples=["gpt-4o-mini", "gpt-4o-2024-08-06"],
+        examples=["gpt-4o-mini", "azure-gpt-4o-mini"],
     )
     thread_id: str | None = Field(
         description="Thread ID to persist and continue a multi-turn conversation.",

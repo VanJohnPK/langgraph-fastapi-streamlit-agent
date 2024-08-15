@@ -40,8 +40,8 @@ async def main():
         st.rerun()
 
     models = {
-        "OpenAI GPT-4o-mini": "gpt-4o-mini",
-        "OpenAI GPT-4o-2024-08-06": "gpt-4o-2024-08-06",
+        "OpenAI gpt-4o-mini": "gpt-4o-mini",
+        "Azure OpenAI gpt-4o-mini": "azure-gpt-4o-mini",
     }
     # Config options
     with st.sidebar:
