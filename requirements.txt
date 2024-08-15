@@ -7,7 +7,7 @@
 aiohttp
 arxiv
 duckduckgo-search
-wikipeida
+wikipedia
 fastapi
 langchain-core
 langchain-community
