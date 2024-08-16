@@ -63,7 +63,7 @@ async def main():
             st.write("Prompts, responses and feedback in this app are anonymously recorded and saved to LangSmith for product evaluation and improvement purposes only.")
 
         "[View the source code](https://github.com/VanJohnPK/langgraph-fastapi-streamlit-agent)"
-        st.caption("Inspired by [Joshua](https://www.linkedin.com/in/joshua-k-carroll/) in Oakland")
+        st.caption("Inspired by [Joshua](https://github.com/JoshuaC215) in Oakland")
         st.caption("Made with :material/favorite: by darkVinci in Shanghai")
 
     # Draw existing messages
