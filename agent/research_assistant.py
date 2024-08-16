@@ -9,7 +9,7 @@ from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, StateGraph, MessagesState
 from langgraph.managed import IsLastStep
 from langgraph.prebuilt import ToolNode
-from agent.tools import web_search, arxiv_search, datetime_tool
+from agent.tools import web_search, arxiv_search, wiki, datetime_tool
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -35,7 +35,7 @@ models = {
     #     model="gpt-4o", temperature=0.5, streaming=True
     # ),
 }
-tools = [web_search, arxiv_search, datetime_tool]
+tools = [web_search, arxiv_search, wiki, datetime_tool]
 instructions = f"""
     You are a helpful research assistant with the ability to search the web for information.
     Please include markdown-formatted links to any citations used in your response. Only include one
