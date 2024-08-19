@@ -18,8 +18,8 @@ from schema import ChatMessage
 # The app heavily uses AgentClient to interact with the agent's FastAPI endpoints.
 
 
-APP_TITLE = "darkVinci's Agent"
-APP_ICON = "🐹"
+APP_TITLE = "🐹's Agent"
+APP_ICON = "🦜"
 
 @st.cache_resource
 def get_agent_client():
@@ -62,6 +62,9 @@ async def main():
         with st.popover(":material/policy: Privacy", use_container_width=True):
             st.write("Prompts, responses and feedback in this app are anonymously recorded and saved to LangSmith for product evaluation and improvement purposes only.")
 
+        if st.button(":material/delete: Reset chat history", use_container_width=True):
+            st.session_state.clear()
+
         "[View the source code](https://github.com/VanJohnPK/langgraph-fastapi-streamlit-agent)"
         st.caption("Inspired by [Joshua](https://github.com/JoshuaC215) in Oakland")
         st.caption("Made with :material/favorite: by darkVinci in Shanghai")
@@ -70,7 +73,7 @@ async def main():
     if "messages" not in st.session_state:
         st.session_state.messages = []
     messages: List[ChatMessage] = st.session_state.messages
-
+    
     if len(messages) == 0:
         WELCOME = "Hello! I'm an AI-powered research assistant with web search. I may take a few seconds to boot up when you send your first message. Ask me anything!"
         with st.chat_message("ai"):
