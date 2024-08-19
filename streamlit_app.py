@@ -50,7 +50,7 @@ async def main():
         with st.popover(":material/settings: Settings", use_container_width=True):
             m = st.radio("LLM to use", options=models.keys())
             model = models[m]
-            temperature = st.slider("temperature between 0 and 2", min_value=0.0, max_value=2.0, value=0.7, format="%.1f")
+            temperature = st.slider("temperature between 0 and 1", min_value=0.0, max_value=1.0, value=0.7, format="%.1f")
             use_streaming = st.toggle("Stream results", value=True)
         
         @st.dialog("Architecture")
