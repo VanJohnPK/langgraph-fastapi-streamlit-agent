@@ -23,6 +23,11 @@ class UserInput(BaseModel):
         default=None,
         examples=["847c6285-8fc9-4560-a83f-4e6285809254"],
     )
+    temperature: float = Field(
+        description="LLM temperature serves as a critical parameter influencing the balance between predictability and creativity in generated text.",
+        default= 0.7,
+        example= [0.5, 0.8],
+    )
 
 
 class StreamInput(UserInput):

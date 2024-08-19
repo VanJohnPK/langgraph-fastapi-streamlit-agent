@@ -54,7 +54,7 @@ def _parse_input(user_input: UserInput) -> Tuple[Dict[str, Any], str]:
     kwargs = dict(
         input={"messages": [input_message.to_langchain()]},
         config=RunnableConfig(
-            configurable={"thread_id": thread_id, "model": user_input.model},
+            configurable={"thread_id": thread_id, "model": user_input.model, "temperature":user_input.temperature},
             run_id=run_id,
         ),
     )

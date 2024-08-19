@@ -50,6 +50,7 @@ async def main():
         with st.popover(":material/settings: Settings", use_container_width=True):
             m = st.radio("LLM to use", options=models.keys())
             model = models[m]
+            temperature = st.slider("temperature between 0 and 2", min_value=0.0, max_value=2.0, value=0.7, format="%.1f")
             use_streaming = st.toggle("Stream results", value=True)
         
         @st.dialog("Architecture")
@@ -93,6 +94,7 @@ async def main():
             stream = agent_client.astream(
                 message=input,
                 model=model,
+                temperature=temperature,
                 thread_id=get_script_run_ctx().session_id,
             )
             await draw_messages(stream, is_new=True)
@@ -100,6 +102,7 @@ async def main():
             response = await agent_client.ainvoke(
                 message=input,
                 model=model,
+                temperature=temperature,
                 thread_id=get_script_run_ctx().session_id,
             )
             messages.append(response)

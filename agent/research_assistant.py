@@ -23,12 +23,12 @@ class AgentState(MessagesState):
 # if the /stream endpoint is called with stream_tokens=True (the default)
 
 
-models = {
-    "gpt-4o-mini": ChatOpenAI(model="gpt-4o-mini", temperature=0.7, streaming=True),
-    "azure-gpt-4o-mini": AzureChatOpenAI(
-        azure_deployment="wi_dev_4o_mini", temperature=0.7, streaming=True
-    ),
-}
+# models = {
+#     "gpt-4o-mini": ChatOpenAI(model="gpt-4o-mini", temperature=0.7, streaming=True),
+#     "azure-gpt-4o-mini": AzureChatOpenAI(
+#         azure_deployment="wi_dev_4o_mini", temperature=0.7, streaming=True
+#     ),
+# }
 
 tools = [web_search, arxiv_search, wiki, datetime_tool]
 instructions = f"""
@@ -48,7 +48,10 @@ def wrap_model(model: BaseChatModel):
 
 
 async def acall_model(state: AgentState, config: RunnableConfig):
-    m = models[config["configurable"].get("model", "gpt-4o-mini")]
+    # m = models[config["configurable"].get("model", "gpt-4o-mini")]
+    model:str = config["configurable"].get("model", "gpt-4o-mini")
+    temperature:float = config["configurable"].get("temperature", 0.7)
+    m = ChatOpenAI(model=model, temperature=temperature, streaming=True)
     model_runnable = wrap_model(m)
     response = await model_runnable.ainvoke(state, config)
     if state["is_last_step"] and response.tool_calls:
