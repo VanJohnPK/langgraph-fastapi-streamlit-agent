@@ -24,19 +24,11 @@ class AgentState(MessagesState):
 
 
 models = {
-    "gpt-4o-mini": ChatOpenAI(model="gpt-4o-mini", temperature=0.5, streaming=True),
+    "gpt-4o-mini": ChatOpenAI(model="gpt-4o-mini", temperature=0.7, streaming=True),
     "azure-gpt-4o-mini": AzureChatOpenAI(
-        azure_deployment="wi_dev_4o_mini", temperature=0.5, streaming=True
+        azure_deployment="wi_dev_4o_mini", temperature=0.7, streaming=True
     ),
 }
-# models = {
-#     "gpt-4o": AzureChatOpenAI(
-#         azure_deployment="wi_daily_dev_testing", temperature=0.5, streaming=True
-#     ),
-#     "gpt-4o": ChatOpenAI(
-#         model="gpt-4o", temperature=0.5, streaming=True
-#     ),
-# }
 
 tools = [web_search, arxiv_search, wiki, datetime_tool]
 instructions = f"""
