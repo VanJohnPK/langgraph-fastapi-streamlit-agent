@@ -126,7 +126,7 @@ class Feedback(BaseModel):
     )
     score: float = Field(
         description="Feedback score.",
-        examples=[0.8],
+        examples=[1],
     )
     kwargs: Dict[str, Any] = Field(
         description="Additional feedback kwargs, passed to LangSmith.",

@@ -28,13 +28,16 @@ models = {
     "azure-gpt-4o-mini": AzureChatOpenAI(
         azure_deployment="wi_dev_4o_mini", temperature=0.5, streaming=True
     ),
-    # "gpt-4o": AzureChatOpenAI(
-    #     azure_deployment="wi_daily_dev_testing", temperature=0.5, streaming=True
-    # ),
-    # "gpt-4o": ChatOpenAI(
-    #     model="gpt-4o", temperature=0.5, streaming=True
-    # ),
 }
+# models = {
+#     "gpt-4o": AzureChatOpenAI(
+#         azure_deployment="wi_daily_dev_testing", temperature=0.5, streaming=True
+#     ),
+#     "gpt-4o": ChatOpenAI(
+#         model="gpt-4o", temperature=0.5, streaming=True
+#     ),
+# }
+
 tools = [web_search, arxiv_search, wiki, datetime_tool]
 instructions = f"""
     You are a helpful research assistant with the ability to search the web for information.
