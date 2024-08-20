@@ -95,6 +95,7 @@ async def main():
                 message=input,
                 model=model,
                 temperature=temperature,
+                system_message=None,
                 thread_id=get_script_run_ctx().session_id,
             )
             await draw_messages(stream, is_new=True)
@@ -103,6 +104,7 @@ async def main():
                 message=input,
                 model=model,
                 temperature=temperature,
+                system_message=None,
                 thread_id=get_script_run_ctx().session_id,
             )
             messages.append(response)
