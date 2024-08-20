@@ -17,7 +17,7 @@ arxiv_search = ArxivQueryRun(name="ArxivSearch")
 
 wiki = WikipediaQueryRun(api_wrapper=WikipediaAPIWrapper())
 
-youtube = YouTubeSearchTool()
+youtube = YouTubeSearchTool(name="YoutubeSearch")
 
 datetime_tool = Tool(
     name="Datetime",
