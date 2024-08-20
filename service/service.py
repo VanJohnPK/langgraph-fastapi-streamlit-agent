@@ -50,11 +50,21 @@ async def check_auth_header(request: Request, call_next):
 def _parse_input(user_input: UserInput) -> Tuple[Dict[str, Any], str]:
     run_id = uuid4()
     thread_id = user_input.thread_id or str(uuid4())
+    
+    # 创建人类消息
     input_message = ChatMessage(type="human", content=user_input.message)
+    
+    messages = [input_message.to_langchain()]
+    if user_input.system_message:
+        # ai human tool 
+        system_message = ChatMessage(type="system", content=user_input.system_message)
+        messages.insert(0, system_message.to_langchain())  # 将系统消息放在消息列表的开头
+
+    # 构建 kwargs 参数
     kwargs = dict(
-        input={"messages": [input_message.to_langchain()]},
+        input={"messages": messages},
         config=RunnableConfig(
-            configurable={"thread_id": thread_id, "model": user_input.model, "temperature":user_input.temperature},
+            configurable={"thread_id": thread_id, "model": user_input.model, "temperature": user_input.temperature},
             run_id=run_id,
         ),
     )

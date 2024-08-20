@@ -1,6 +1,6 @@
 from typing import Dict, Any, List, Literal
 from langchain_core.messages import (
-    BaseMessage, HumanMessage, AIMessage,
+    BaseMessage, HumanMessage, AIMessage,SystemMessage,
     ToolMessage, ToolCall,
     message_to_dict, messages_from_dict,
 )
@@ -9,6 +9,10 @@ from pydantic import BaseModel, Field
 
 class UserInput(BaseModel):
     """Basic user input for the agent."""
+    system_message : str = Field(
+        description="System message to prepend to the agent.",
+        examples=["You are a helpful assistant."],
+    )
     message: str = Field(
         description="User input to the agent.",
         examples=["What is the weather in Tokyo?"],
@@ -52,9 +56,9 @@ class AgentResponse(BaseModel):
 
 class ChatMessage(BaseModel):
     """Message in a chat."""
-    type: Literal["human", "ai", "tool"] = Field(
+    type: Literal["human", "ai", "tool", "system"] = Field(
         description="Role of the message.",
-        examples=["human", "ai", "tool"],
+        examples=["human", "ai", "tool", "system"],
     )
     content: str = Field(
         description="Content of the message.",
@@ -107,9 +111,12 @@ class ChatMessage(BaseModel):
         """Convert the ChatMessage to a LangChain message."""
         if self.original:
             return messages_from_dict([self.original])[0]
+        
         match self.type:
             case "human":
                 return HumanMessage(content=self.content)
+            case "system":
+                return SystemMessage(content=self.content)  # 假设 SystemMessage 类已经定义
             case _:
                 raise NotImplementedError(f"Unsupported message type: {self.type}")
 
