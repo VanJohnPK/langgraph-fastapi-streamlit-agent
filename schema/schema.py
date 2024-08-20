@@ -11,6 +11,7 @@ class UserInput(BaseModel):
     """Basic user input for the agent."""
     system_message : str | None = Field(
         description="System message to prepend to the agent.",
+        default = None,
         examples=["You are a helpful assistant."],
     )
     message: str = Field(

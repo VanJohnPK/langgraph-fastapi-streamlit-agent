@@ -25,7 +25,7 @@ class AgentClient:
             headers["Authorization"] = f"Bearer {self.auth_secret}"
         return headers
 
-    async def ainvoke(self, message: str, model: str|None = None, temperature: float|None = None, thread_id: str|None = None) -> ChatMessage:
+    async def ainvoke(self,  message: str, system_message: str|None = None, model: str|None = None, temperature: float|None = None, thread_id: str|None = None) -> ChatMessage:
         """
         Invoke the agent asynchronously. Only the final message is returned.
 
@@ -141,6 +141,7 @@ class AgentClient:
     async def astream(
             self,
             message: str,
+            system_message: str|None = None,
             model: str|None = None,
             temperature: float|None = None,
             thread_id: str|None = None,
