@@ -9,7 +9,7 @@ from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, StateGraph, MessagesState
 from langgraph.managed import IsLastStep
 from langgraph.prebuilt import ToolNode
-from agent.tools import web_search, arxiv_search, wiki, datetime_tool
+from agent.tools import web_search, arxiv_search, wiki, datetime_tool, youtube
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -30,7 +30,7 @@ class AgentState(MessagesState):
 #     ),
 # }
 
-tools = [web_search, arxiv_search, wiki, datetime_tool]
+tools = [web_search, arxiv_search, wiki, datetime_tool, youtube]
 instructions = f"""
     You are a helpful research assistant with the ability to search the web for information.
     Please include markdown-formatted links to any citations used in your response. Only include one
@@ -51,7 +51,12 @@ async def acall_model(state: AgentState, config: RunnableConfig):
     # m = models[config["configurable"].get("model", "gpt-4o-mini")]
     model:str = config["configurable"].get("model", "gpt-4o-mini")
     temperature:float = config["configurable"].get("temperature", 0.7)
-    m = ChatOpenAI(model=model, temperature=temperature, streaming=True)
+    if model == "gpt-4o-mini":
+        m = ChatOpenAI(model=model, temperature=temperature, streaming=True)
+    else:
+        m = AzureChatOpenAI(
+            azure_deployment="wi_dev_4o_mini", temperature=0.7, streaming=True
+        ),
     model_runnable = wrap_model(m)
     response = await model_runnable.ainvoke(state, config)
     if state["is_last_step"] and response.tool_calls:

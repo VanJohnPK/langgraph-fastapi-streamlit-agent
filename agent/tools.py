@@ -2,7 +2,8 @@ from langchain_core.tools import Tool
 from langchain_community.tools import (
     DuckDuckGoSearchResults,
     ArxivQueryRun,
-    WikipediaQueryRun
+    WikipediaQueryRun,
+    YouTubeSearchTool,
 )
 from langchain_community.utilities import WikipediaAPIWrapper
 from datetime import datetime
@@ -13,6 +14,8 @@ web_search = DuckDuckGoSearchResults(name="WebSearch")
 arxiv_search = ArxivQueryRun(name="ArxivSearch")
 
 wiki = WikipediaQueryRun(api_wrapper=WikipediaAPIWrapper())
+
+youtube = YouTubeSearchTool()
 
 datetime_tool = Tool(
     name="Datetime",
