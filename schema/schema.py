@@ -9,7 +9,7 @@ from pydantic import BaseModel, Field
 
 class UserInput(BaseModel):
     """Basic user input for the agent."""
-    system_message : str = Field(
+    system_message : str | None = Field(
         description="System message to prepend to the agent.",
         examples=["You are a helpful assistant."],
     )
