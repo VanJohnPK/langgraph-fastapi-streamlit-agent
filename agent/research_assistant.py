@@ -31,12 +31,12 @@ class AgentState(MessagesState):
 # }
 
 tools = [web_search, arxiv_search, wiki, datetime_tool, youtube, calculator]
-instructions = f"""
-    You are a helpful research assistant with the ability to search the web for information.
-    Please include markdown-formatted links to any citations used in your response. Only include one
-    or two citations per response unless more are needed. ONLY USE LINKS RETURNED BY THE TOOLS.
-    """
-
+# instructions = f"""
+#     You are a helpful research assistant with the ability to search the web for information.
+#     Please include markdown-formatted links to any citations used in your response. Only include one
+#     or two citations per response unless more are needed. ONLY USE LINKS RETURNED BY THE TOOLS.
+#     """
+instructions = ""
 
 def wrap_model(model: BaseChatModel):
     model = model.bind_tools(tools)
@@ -55,8 +55,10 @@ async def acall_model(state: AgentState, config: RunnableConfig):
         m = ChatOpenAI(model=model, temperature=temperature, streaming=True)
     else:
         m = AzureChatOpenAI(
-            azure_deployment="wi_dev_4o_mini", temperature=0.7, streaming=True
+            azure_deployment="wi_daily_dev_testing", temperature=temperature, streaming=True
         ),
+        m = m[0]
+        
     model_runnable = wrap_model(m)
     response = await model_runnable.ainvoke(state, config)
     if state["is_last_step"] and response.tool_calls:
