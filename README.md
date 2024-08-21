@@ -1,4 +1,4 @@
-# 🐹 darkVinci's Agent
+# 🦜 🐹's Agent
 
 Reference: [agent-service-toolkit](https://github.com/JoshuaC215/agent-service-toolkit.git)
 
