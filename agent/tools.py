@@ -13,15 +13,11 @@ from langchain_experimental.tools import PythonREPLTool
 
 web_search = DuckDuckGoSearchResults(name="WebSearch")
 
+python = PythonREPLTool(name="PythonREPL")
 # Kinda busted since it doesn't return links
-arxiv_search = ArxivQueryRun(name="ArxivSearch")
+# arxiv_search = ArxivQueryRun(name="ArxivSearch") # 只能提供摘要, 而且没有链接, 有点飞舞
 
 wiki = WikipediaQueryRun(name="Wikipedia", api_wrapper=WikipediaAPIWrapper())
 
 youtube = YouTubeSearchTool(name="YoutubeSearch")
 
-python = PythonREPLTool(name="PythonREPL", description= (
-        "A Python shell. It allows you to execute python commands. "
-        "Input should be a valid python command. "
-        "You must end with print(output). "
-    ))

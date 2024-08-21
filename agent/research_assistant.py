@@ -9,7 +9,7 @@ from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, StateGraph, MessagesState
 from langgraph.managed import IsLastStep
 from langgraph.prebuilt import ToolNode
-from agent.tools import web_search, arxiv_search, wiki, youtube, python
+from agent.tools import web_search, wiki, youtube, python
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -30,13 +30,15 @@ class AgentState(MessagesState):
 #     ),
 # }
 
-tools = [web_search, arxiv_search, wiki, youtube, python]
+tools = [web_search, python, wiki, youtube]
 # instructions = f"""
 #     You are a helpful research assistant with the ability to search the web for information.
 #     Please include markdown-formatted links to any citations used in your response. Only include one
 #     or two citations per response unless more are needed. ONLY USE LINKS RETURNED BY THE TOOLS.
 #     """
-instructions = ""
+instructions = """You are a helpful assistant with the ability to search the web for information.
+The code you give to REPL must contain print.
+"""
 
 def wrap_model(model: BaseChatModel):
     model = model.bind_tools(tools)
