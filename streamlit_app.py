@@ -41,7 +41,7 @@ async def main():
 
     models = {
         "OpenAI gpt-4o-mini": "gpt-4o-mini",
-        "Azure OpenAI gpt-4o-mini": "azure-gpt-4o-mini",
+        "Azure OpenAI gpt-4o": "azure-gpt-4o",
     }
     # Config options
     with st.sidebar:
