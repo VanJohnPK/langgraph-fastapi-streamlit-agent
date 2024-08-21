@@ -9,40 +9,19 @@ from langchain_community.utilities import WikipediaAPIWrapper
 from datetime import datetime
 import math
 import numexpr
+from langchain_experimental.tools import PythonREPLTool
 
 web_search = DuckDuckGoSearchResults(name="WebSearch")
 
 # Kinda busted since it doesn't return links
 arxiv_search = ArxivQueryRun(name="ArxivSearch")
 
-wiki = WikipediaQueryRun(api_wrapper=WikipediaAPIWrapper())
+wiki = WikipediaQueryRun(name="Wikipedia", api_wrapper=WikipediaAPIWrapper())
 
 youtube = YouTubeSearchTool(name="YoutubeSearch")
 
-datetime_tool = Tool(
-    name="Datetime",
-    func=lambda x: datetime.now().isoformat(),
-    description="Returns the current datetime",
-)
-
-def calculator_func(expression: str) -> str:
-    """Calculate expression using Python's numexpr library.
-
-    Expression should be a single line mathematical expression
-    that solves the problem.
-
-    Examples:
-        "37593 * 67" for "37593 times 67"
-        "37593**(1/5)" for "37593^(1/5)"
-    """
-    local_dict = {"pi": math.pi, "e": math.e}
-    return str(
-        numexpr.evaluate(
-            expression.strip(),
-            global_dict={},  # restrict access to globals
-            local_dict=local_dict,  # add common mathematical functions
-        )
-    )
-
-calculator: BaseTool = tool(calculator_func)
-calculator.name = "Calculator"
+python = PythonREPLTool(name="PythonREPL", description= (
+        "A Python shell. It allows you to execute python commands. "
+        "Input should be a valid python command. "
+        "You must end with print(output). "
+    ))

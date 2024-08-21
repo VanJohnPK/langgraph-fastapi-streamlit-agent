@@ -9,7 +9,7 @@ from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, StateGraph, MessagesState
 from langgraph.managed import IsLastStep
 from langgraph.prebuilt import ToolNode
-from agent.tools import web_search, arxiv_search, wiki, datetime_tool, youtube, calculator
+from agent.tools import web_search, arxiv_search, wiki, youtube, python
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -30,7 +30,7 @@ class AgentState(MessagesState):
 #     ),
 # }
 
-tools = [web_search, arxiv_search, wiki, datetime_tool, youtube, calculator]
+tools = [web_search, arxiv_search, wiki, youtube, python]
 # instructions = f"""
 #     You are a helpful research assistant with the ability to search the web for information.
 #     Please include markdown-formatted links to any citations used in your response. Only include one

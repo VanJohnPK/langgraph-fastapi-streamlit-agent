@@ -21,3 +21,5 @@ pydantic
 python-dotenv
 streamlit
 uvicorn
+yfinance
+youtube_search
