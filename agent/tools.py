@@ -1,17 +1,15 @@
-from langchain_core.tools import Tool, tool, BaseTool
+# from langchain_core.tools import Tool, tool, BaseTool
 from langchain_community.tools import (
     DuckDuckGoSearchResults,
-    ArxivQueryRun,
+    # ArxivQueryRun,
     WikipediaQueryRun,
     YouTubeSearchTool,
 )
 from langchain_community.utilities import WikipediaAPIWrapper
-from datetime import datetime
-import math
-import numexpr
 from langchain_experimental.tools import PythonREPLTool
 
-web_search = DuckDuckGoSearchResults(name="WebSearch")
+
+web_search = DuckDuckGoSearchResults(name="WebSearch", num_results=5)
 
 python = PythonREPLTool(name="PythonREPL")
 # Kinda busted since it doesn't return links

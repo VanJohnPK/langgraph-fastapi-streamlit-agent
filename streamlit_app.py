@@ -52,13 +52,6 @@ async def main():
             model = models[m]
             temperature = st.slider("temperature between 0 and 1", min_value=0.0, max_value=1.0, value=0.7, format="%.1f")
             use_streaming = st.toggle("Stream results", value=True)
-        
-        @st.dialog("Architecture")
-        def architecture_dialog():
-            st.image("https://github.com/JoshuaC215/agent-service-toolkit/blob/main/media/agent_architecture.png?raw=true")
-
-        if st.button(":material/schema: Architecture", use_container_width=True):
-            architecture_dialog()
 
         with st.popover(":material/policy: Privacy", use_container_width=True):
             st.write("Prompts, responses and feedback in this app are anonymously recorded and saved to LangSmith for product evaluation and improvement purposes only.")
@@ -76,7 +69,7 @@ async def main():
     messages: List[ChatMessage] = st.session_state.messages
     
     if len(messages) == 0:
-        WELCOME = "Hello! I'm an AI-powered research assistant with web search. I may take a few seconds to boot up when you send your first message. Ask me anything!"
+        WELCOME = "Hello! I'm an AI-powered assistant with web search. I may take a few seconds to boot up when you send your first message. Ask me anything!"
         with st.chat_message("ai"):
             st.write(WELCOME)
 
