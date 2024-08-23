@@ -79,6 +79,11 @@ class ChatMessage(BaseModel):
         default=None,
         examples=["847c6285-8fc9-4560-a83f-4e6285809254"],
     )
+    thread_id: str | None = Field(
+        description="Thread ID of the thred.",
+        default=None,
+        examples=["847c6285-8fc9-4560-a83f-4e6285809254"],
+    )
     original: Dict[str, Any] = Field(
         description="Original LangChain message in serialized form.",
         default={},

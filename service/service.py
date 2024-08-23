@@ -84,6 +84,8 @@ async def invoke(user_input: UserInput) -> ChatMessage:
         response = await agent.ainvoke(**kwargs)
         output = ChatMessage.from_langchain(response["messages"][-1])
         output.run_id = str(run_id)
+        # 提出 kawargs 中的 thread_id
+        output.thread_id = kwargs['config']['configurable']['thread_id']
         return output
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
